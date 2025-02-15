@@ -1,6 +1,9 @@
 let humanScore = 0;
 let computerScore = 0;
 
+console.log("Human Score:", humanScore);
+console.log("Computer Score:", computerScore);
+
 function getComputerChoice() {
     const random = Math.random();
 
@@ -24,5 +27,42 @@ while (!["rock", "paper", "scissors"].includes(choice)) {
 return choice;
 }
 
-console.log(getHumanChoice());
 console.log(getComputerChoice());
+console.log(getHumanChoice());
+
+function playRound(humanChoice, computerChoice) {
+    
+    if (humanChoice === computerChoice) {
+        console.log("It's a tie!");
+    }
+    
+    if (humanChoice === "rock" && computerChoice === "scissors") {
+        console.log("You Win!");
+    }
+
+    if (humanChoice === "scissors" && computerChoice === "rock"){
+        console.log("You Lose!");
+    }
+
+    if (humanChoice === "paper" && computerChoice === "rock") {
+        console.log("You Win!");
+    }
+
+    if (humanChoice === "rock" && computerChoice === "paper") {
+        console.log("You Lose!");
+    }
+
+    if (humanChoice === "scissors" && computerChoice === "paper") {
+        console.log("You Win!");
+    }
+
+    if (humanChoice === "paper" && computerChoice === "scissors") {
+        console.log("You Lose!")
+    }
+}
+
+const humanSelection = getHumanChoice();
+const computerSelection = getComputerChoice();
+
+playRound(humanSelection, computerSelection);
+
