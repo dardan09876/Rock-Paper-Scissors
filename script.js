@@ -1,13 +1,25 @@
 function getComputerChoice() {
-    const choice = Math.random();
+    const random = Math.random();
 
-    if (choice < 1 / 3) {
+    if (random < 1 / 3) {
         return "rock";
-    } else if (choice < 2 / 3) {
+    } else if (random < 2 / 3) {
         return "paper";
     } else {
         return "scissors";
     }
 }
 
+function getHumanChoice() {
+
+let choice = prompt("rock, paper, or scissors").toLowerCase();
+
+while (!["rock", "paper", "scissors"].includes(choice)) {
+    choice = prompt("Enter rock, paper, or scissors")
+}
+
+return choice;
+}
+
+console.log(getHumanChoice());
 console.log(getComputerChoice());
