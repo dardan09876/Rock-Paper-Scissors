@@ -1,58 +1,73 @@
-function playGame() {
-    let humanScore = 0;
-    let computerScore = 0;
+let humanScore = 0;
+let computerScore = 0;
 
-    function getHumanChoice() {
-        let choice;
-        while (true) {
-            choice = prompt("Enter rock, paper, or scissors:").toLowerCase();
-            if (["rock", "paper", "scissors"].includes(choice)) {
-                return choice;
-            }
-            console.log("Invalid choice. Please enter rock, paper, or scissors.");
-        }
-    }
+const choices = ["rock", "paper", "scissors"];
+const resultDiv = document.getElementById("result");
+const scoreDiv = document.getElementById("score");
 
-    function getComputerChoice() {
-        const choices = ["rock", "paper", "scissors"];
-        return choices[Math.floor(Math.random() * choices.length)];
-    }
+document.getElementById("rock").addEventListener("click", () => playRound("rock"));
+document.getElementById("paper").addEventListener("click", () => playRound("paper"));
+document.getElementById("scissors").addEventListener("click", () => playRound("scissors"));
 
-    function playRound(humanChoice, computerChoice) {
-        console.log(`You chose: ${humanChoice}`);
-        console.log(`Computer chose: ${computerChoice}`);
+// Apply CSS styling directly via JavaScript
+document.body.style.fontFamily = "Arial, sans-serif";
+document.body.style.textAlign = "center";
+document.body.style.margin = "50px";
 
-        if (humanChoice === computerChoice) {
-            console.log("It's a tie!");
-        } else if (
-            (humanChoice === "rock" && computerChoice === "scissors") ||
-            (humanChoice === "paper" && computerChoice === "rock") ||
-            (humanChoice === "scissors" && computerChoice === "paper")
-        ) {
-            humanScore++;
-            console.log("You Win!");
-        } else {
-            computerScore++;
-            console.log("You Lost");
-        }
+document.getElementById("buttons").style.margin = "20px";
 
-        console.log(`Score - You: ${humanScore}, Computer: ${computerScore}`);
-    }
+document.querySelectorAll("button").forEach(button => {
+    button.style.margin = "5px";
+    button.style.padding = "10px 20px";
+    button.style.fontSize = "16px";
+    button.style.cursor = "pointer";
+    button.style.border = "none";
+    button.style.borderRadius = "5px";
+    button.style.backgroundColor = "#3498db";
+    button.style.color = "white";
+    button.style.transition = "background-color 0.3s";
+    button.addEventListener("mouseover", () => button.style.backgroundColor = "#2980b9");
+    button.addEventListener("mouseout", () => button.style.backgroundColor = "#3498db");
+});
 
-    for (let i = 0; i < 5; i++) {
-        console.log(`Round ${i + 1}`);
-        let humanChoice = getHumanChoice();
-        let computerChoice = getComputerChoice();
-        playRound(humanChoice, computerChoice);
-    }
+resultDiv.style.marginTop = "20px";
+resultDiv.style.fontSize = "18px";
+resultDiv.style.fontWeight = "bold";
 
-    if (humanScore > computerScore) {
-        console.log("You Won!");
-    } else if (humanScore < computerScore) {
-        console.log("You Lose!");
-    } else {
-        console.log("It's a tie");
-    }
+scoreDiv.style.marginTop = "20px";
+scoreDiv.style.fontSize = "18px";
+scoreDiv.style.fontWeight = "bold";
+
+function getComputerChoice() {
+    return choices[Math.floor(Math.random() * choices.length)];
 }
 
-playGame();
+function playRound(humanChoice) {
+    if (humanScore >= 5 || computerScore >= 5) return;
+    
+    const computerChoice = getComputerChoice();
+    let result = "";
+    
+    if (humanChoice === computerChoice) {
+        result = "It's a tie!";
+    } else if (
+        (humanChoice === "rock" && computerChoice === "scissors") ||
+        (humanChoice === "paper" && computerChoice === "rock") ||
+        (humanChoice === "scissors" && computerChoice === "paper")
+    ) {
+        humanScore++;
+        result = "You Win!";
+    } else {
+        computerScore++;
+        result = "You Lost!";
+    }
+    
+    resultDiv.textContent = `You chose: ${humanChoice} | Computer chose: ${computerChoice} | ${result}`;
+    scoreDiv.textContent = `Score - You: ${humanScore}, Computer: ${computerScore}`;
+    
+    if (humanScore === 5) {
+        resultDiv.textContent += " Congratulations, you won the game!";
+    } else if (computerScore === 5) {
+        resultDiv.textContent += " Sorry, you lost the game.";
+    }
+}
