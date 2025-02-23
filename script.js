@@ -9,7 +9,7 @@ document.getElementById("rock").addEventListener("click", () => playRound("rock"
 document.getElementById("paper").addEventListener("click", () => playRound("paper"));
 document.getElementById("scissors").addEventListener("click", () => playRound("scissors"));
 
-// Apply CSS styling directly via JavaScript
+
 document.body.style.fontFamily = "Arial, sans-serif";
 document.body.style.textAlign = "center";
 document.body.style.margin = "50px";
